@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Form, Input, InputNumber } from 'antd';
+import { Button, Form, Input, InputNumber, notification } from 'antd';
 const base_url = process.env.NEXT_PUBLIC_API_URL;
+
 
 const layout = {
     labelCol: {
@@ -25,6 +26,19 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const CustomForm = () => {
+
+
+    const [api, contextHolder] = notification.useNotification();
+    const [form] = Form.useForm();
+
+    const showSuccessMsg = () => {
+    
+    };
+
+    const showErrorMsg = () => {
+        
+      };
+    
     const onFinish = (values: any) => {
         fetch(base_url+'/vocab/create', {
             method: 'POST', // or 'PUT'
@@ -36,14 +50,26 @@ const CustomForm = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log('Success:', data);
+            api.info({
+                message: `Notification`,
+                description: "Submitted successfully",
+                placement: "bottomRight"
+              });
+              form.resetFields();
           })
           .catch((error) => {
-            console.error('Error:', error);
+            api.info({ 
+                message: `Notification`,
+                description: "Form submit failed",
+                placement: "bottomRight"
+              });
           });
     };
 
     return (
-        <Form className="form" {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+        <>
++      {contextHolder}
+        <Form className="form" {...layout} name="nest-messages"   form={form} onFinish={onFinish} validateMessages={validateMessages}>
             <Form.Item
                 name={['title']}
                 label="Title"
@@ -71,6 +97,7 @@ const CustomForm = () => {
                 </Button>
             </Form.Item>
         </Form>
+        </>
     );
 };
 

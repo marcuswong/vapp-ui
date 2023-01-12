@@ -5,13 +5,16 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, notification } from 'antd';
 import React, { useState } from 'react';
 import CustomForm from '../components/customForm';
 const { Header, Sider, Content } = Layout;
 
 export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
+
+ 
+
   return (
       <Layout className="layout">
         <Sider trigger={null} collapsible collapsed={collapsed}>
