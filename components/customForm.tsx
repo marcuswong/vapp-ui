@@ -25,7 +25,7 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const CustomForm = () => {
-    const onFinish = (values) => {
+    const onFinish = (values: any) => {
         fetch(base_url+'/vocab/create', {
             method: 'POST', // or 'PUT'
           headers: {
@@ -45,8 +45,8 @@ const CustomForm = () => {
     return (
         <Form className="form" {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
             <Form.Item
-                name={['text']}
-                label="Text"
+                name={['title']}
+                label="Title"
                 rules={[
                     {
                         required: true,
@@ -56,7 +56,7 @@ const CustomForm = () => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name={['desc']}
+                name={['desccription']}
                 label="Description">
                 <Input />
             </Form.Item>
